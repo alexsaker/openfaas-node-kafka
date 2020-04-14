@@ -1,0 +1,51 @@
+version: '2'
+
+services:
+  zookeeper:
+    image: 'bitnami/zookeeper:latest'
+    ports:
+      - '2181:2181'
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+  kafka1:
+    image: 'bitnami/kafka:latest'
+    depends_on:
+      - zookeeper
+    ports:
+      - '9092:9092'
+      - '29092:29092'
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=INTERNAL://:9092,EXTERNAL://:29092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=INTERNAL://kafka1:9092,EXTERNAL://192.168.99.101:29092
+      - KAFKA_INTER_BROKER_LISTENER_NAME=INTERNAL
+  kafka2:
+    image: 'bitnami/kafka:latest'
+    depends_on:
+      - zookeeper
+    ports:
+      - '9093:9092'
+      - '29093:29093'
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=INTERNAL://:9093,EXTERNAL://:29093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=INTERNAL://kafka2:9093,EXTERNAL://192.168.99.101:29093
+      - KAFKA_INTER_BROKER_LISTENER_NAME=INTERNAL
+  kafka3:
+    image: 'bitnami/kafka:latest'
+    depends_on:
+      - zookeeper
+    ports:
+      - '9094:9092'
+      - '29094:29094'
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=INTERNAL://:9094,EXTERNAL://:29094
+      - KAFKA_CFG_ADVERTISED_LISTENERS=INTERNAL://kafka3:9094,EXTERNAL://192.168.99.101:29094
+      - KAFKA_INTER_BROKER_LISTENER_NAME=INTERNAL
