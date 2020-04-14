@@ -141,5 +141,7 @@ Send messages to topic in order to validate trigger
 # Ressources
 
 https://medium.com/faun/getting-started-with-openfaas-on-minikube-634502c7acdf
+
 https://blog.alexellis.io/quickstart-openfaas-cli/
+
 https://www.openfaas.com/blog/kafka-connector/
